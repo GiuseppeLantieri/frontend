@@ -113,25 +113,21 @@ export function Card({ detail }: {
     const [hoover, setHoover] = useState(false);
     const [show, setShow] = useState(false) as any;
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => { console.log("ciao"); setShow(false) };
+    const handleShow = () => { console.log("ciao2"); setShow(true) };
+    // const handleMouseEnter = () => {
+    //     setHoover(true);
+    // };
 
-    const handleMouseEnter = () => {
-        setHoover(true);
-    };
-
-    const handleMouseLeave = () => {
-        setHoover(false);
-    };
+    // const handleMouseLeave = () => {
+    //     setHoover(false);
+    // };
     return (
-        <CardB style={{ width: '20rem', margin: "0px", borderRadius: "25px", padding: "0px", cursor: hoover ? "pointer" : "auto" }}
-            onClick={() => handleShow} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <>
             <Open detail={detail} show={show} handleClose={handleClose} />
-            {hoover ?
-                <div style={{ padding: "3em", width: "20em", height: "24em", backgroundColor: colors.darkgreen, borderRadius: "25px", }}>
-                    {detail.description}
-                </div>
-                :
+            <CardB style={{ width: '20rem', margin: "0px", borderRadius: "25px", padding: "0px", }}
+                onClick={handleShow} >
+
                 <>
                     <CardB.Img variant="top" src={detail.image} style={{ padding: "0px", width: "100%", height: "20em", borderRadius: "25px", }} />
 
@@ -140,8 +136,9 @@ export function Card({ detail }: {
                         <ProgressBar now={(Number(detail.fundRaised) / Number(detail.budget)) * 100} />
                     </CardB.Body>
                 </>
-            }
-        </CardB>
+
+            </CardB>
+        </>
 
     );
 }
