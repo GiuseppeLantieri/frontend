@@ -23,14 +23,14 @@ const Home: NextPage = () => {
     const publicClient = getPublicClient()
     const campaign = router.query.campaign;
     const [funds, setFunds] = useState(0) as any;
-    const { write } = useWrite({
-        abi: contracts.campaign.abi,
-        address: campaign as `0x${string}`,
-        args: [],
-        enabled: Boolean(funds),
-        functionName: "sendFund",
-        value: funds == 0 ? BigInt(0) : parseUnits(funds, 18)
-    });
+    // const { write } = useWrite({
+    //     abi: contracts.campaign.abi,
+    //     address: campaign as `0x${string}`,
+    //     args: [],
+    //     enabled: Boolean(funds),
+    //     functionName: "sendFund",
+    //     value: funds == 0 ? BigInt(0) : parseUnits(funds, 18)
+    // });
 
 
     useEffect(() => {
@@ -47,9 +47,9 @@ const Home: NextPage = () => {
         })();
     }, [])
 
-    const click = async () => {
-        write?.()
-    }
+    // const click = async () => {
+    //     write?.()
+    // }
 
     return (
         <div >
@@ -71,7 +71,7 @@ const Home: NextPage = () => {
                             <FormB.Label>Budget BFT</FormB.Label>
                             <FormB.Control name='budget' type="number" style={{ width: "10em" }} value={funds} onInput={(e: any) => setFunds(e.target.value)} />
                         </div>
-                        <Button onClick={click}>Sostieni!</Button>
+                        {/* <Button onClick={click}>Sostieni!</Button> */}
                     </div>
                 </>
             }
