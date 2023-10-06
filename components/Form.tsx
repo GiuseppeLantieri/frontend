@@ -63,7 +63,6 @@ export function Form() {
 
     const storeNFT = async (image: any, name: any, description: any) => {
         // create a new NFTStorage client using our API key
-        console.log("password", process.env.NEXT_PUBLIC_ID)
         const nftstorage = new NFTStorage({ token: process.env.NEXT_PUBLIC_ID as string })
 
         // call client.store, passing in the image & metadata
@@ -73,7 +72,13 @@ export function Form() {
     }
 
     const handleSubmit = async (e: any) => {
-        if (args) { await write?.(); }
+        if (args) {
+            e.preventDefault();
+
+            await write?.();
+
+            location.href = "/";
+        }
         else {
             e.preventDefault();
             try {
