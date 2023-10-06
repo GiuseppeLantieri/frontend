@@ -125,7 +125,7 @@ export function Card({ detail }: {
     };
     return (
         <CardB style={{ width: '20rem', margin: "0px", borderRadius: "25px", padding: "0px", cursor: hoover ? "pointer" : "auto" }}
-            onClick={handleShow} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            onClick={() => handleShow} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <Open detail={detail} show={show} handleClose={handleClose} />
             {hoover ?
                 <div style={{ padding: "3em", width: "20em", height: "24em", backgroundColor: colors.darkgreen, borderRadius: "25px", }}>
