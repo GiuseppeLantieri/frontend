@@ -74,10 +74,8 @@ export function Form() {
         const fileBefore = formData.get("image") as File;
         const fileAfter = await resizeImageFn(fileBefore);
 
-        // const nft = await storeNFT(fileAfter, "ciao", "prova");
-        // const url = nft.data.image.href;
-        const url = "ipfs://bafybeihdpwbjl2ropsqdbpm2sw6pnboaqebna2ssz32lwgbvahbsd55dui/image";
-        console.log(url);
+        const nft = await storeNFT(fileAfter, "ciao", "prova");
+        const url = nft.data.image.href;
         setArgs([
             ONE_MONTH,//     uint _unlockTime,
             parseUnits(Form.budget, 18),// uint _budget,

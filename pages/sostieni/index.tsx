@@ -33,7 +33,8 @@ const Home: NextPage = () => {
                     if (donators.includes(account.address)) {
                         const myFund = formatUnits(await getDonatorAmount(publicClient, addressR, account.address), 18);
                         const det = await getEverythingCampaign(publicClient, addressC);
-                        data.push({ ...det, myFund });
+                        if (!det.state)
+                            data.push({ ...det, myFund });
 
                     }
                 }
@@ -51,13 +52,20 @@ const Home: NextPage = () => {
             <Navbar />
 
             {!cards &&
-                <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em" }}>
+                <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
 
                     <Spinner style={{ margin: "auto" }} />
                 </Container>
             }
-            {cards && <Raccolta cards={cards} />}
-            <Title title="Grazie infinitivamente per il tuo contributo!" />
+            {cards && cards.lengts > 0 && <>
+                <Raccolta cards={cards} />
+                <Title title="Grazie infinitivamente per il tuo contributo!" />
+            </>
+            }
+            {cards && cards.length == 0 && <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "90vh" }}>
+                <Title title='Nessuna raccolta creata!' />
+            </Container>
+            }
             <Footer />
         </div>
     );

@@ -39,7 +39,7 @@ export function Raccolta({ cards }: {
                 </Row>
 
             </div>
-            <Title title={`Hai donato un totale di ${cards.reduce((a, b) => a + b.myFund, 0)}`} />
+            <Title title={`Hai donato un totale di ${cards.reduce((a, b) => a + Number(b.myFund), 0)} BFT`} />
         </>
     )
 }

@@ -20,7 +20,8 @@ const Home: NextPage = () => {
       const data = [];
       for (const addressC of campaigns) {
         const detail = await getEverythingCampaign(publicClient, addressC);
-        data.push(detail);
+        if (!detail.state)
+          data.push(detail);
       }
 
       setCards(data);
@@ -32,10 +33,16 @@ const Home: NextPage = () => {
     <div >
       <Navbar />
       <Title title='Il Luogo giusto per dare valore a ciò che conta davvero per te' />
-      {!cards && <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em" }}>
-                <Spinner style={{ margin: "auto" }} />
-            </Container>}
+      {!cards &&
+
+        <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
+          <Spinner style={{ margin: "auto" }} />
+        </Container>
+      }
       {cards && <Carousel cards={cards} />}
+      {cards && cards.length == 0 && <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
+        <Title title='Nessuna raccolta creata!' />
+      </Container>}
       <Footer />
     </div>
   );

@@ -29,11 +29,11 @@ const Home: NextPage = () => {
                     const receiver = await getReceiver(publicClient, addressC);
                     if (receiver == account.address) {
                         const det = await getEverythingCampaign(publicClient, addressC);
-                        data.push({ ...det });
+                        if (!det.state)
+                            data.push({ ...det });
                     }
                 }
 
-                console.log(data);
                 setCards(data);
             }
         })();
@@ -43,20 +43,23 @@ const Home: NextPage = () => {
         <div >
             <Navbar />
             <Title title='La tua raccolta' />
-            {!cards && <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em" }}>
+            {!cards && <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
                 <Spinner style={{ margin: "auto" }} />
             </Container>}
             {
                 cards && cards.map((card: any, index: number) => {
                     return (
                         <div key={index}>
-                            <CardInfo data={card} withdraw={true}/>
-                            
+                            <CardInfo data={card} withdraw={true} />
+
                         </div>
 
                     )
                 })
             }
+            {cards && cards.length == 0 && <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
+                <Title title='Nessuna raccolta creata!' />
+            </Container>}
             <Footer />
         </div>
     );

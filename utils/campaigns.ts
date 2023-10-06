@@ -102,23 +102,41 @@ export const getPostal = async (publicClient: any, address: string) => {
     return data;
 }
 
+
+export const getState = async (publicClient: any, address: string) => {
+    const data = await publicClient.readContract({
+        ...getContract(address),
+        functionName: 'isPaused',
+    })
+    return data;
+}
+
 export const getEverythingCampaign = async (publicClient: any, address: string) => {
-    const rDonators = await getRDonators(publicClient, address);
-    const name = await getName(publicClient, address);
-    const description = await getDescription(publicClient, address);
-    const image = await getImage(publicClient, address);
-    const budget = await getBudget(publicClient, address);
-    const company = await getCompany(publicClient, address);
-    const location = await getLocation(publicClient, address);
-    const postal = await getPostal(publicClient, address);
-    const receiver = await getReceiver(publicClient, address);
-    const fundRaised = await getFundRaiser(publicClient, address);
-    const Nft = await getNft(publicClient, address);
-    const unlockTime = await getunlockTime(publicClient, address);
+    const rDonatorsP = getRDonators(publicClient, address);
+    const nameP = getName(publicClient, address);
+    const descriptionP = getDescription(publicClient, address);
+    const imageP = getImage(publicClient, address);
+    const budgetP = getBudget(publicClient, address);
+    const companyP = getCompany(publicClient, address);
+    const locationP = getLocation(publicClient, address);
+    const postalP = getPostal(publicClient, address);
+    const receiverP = getReceiver(publicClient, address);
+    const fundRaisedP = getFundRaiser(publicClient, address);
+    const NftP = getNft(publicClient, address);
+    const unlockTimeP = getunlockTime(publicClient, address);
+    const stateP = getState(publicClient, address);
+
+    const [rDonators, name, description, image,
+        budget, company, location, postal,
+        receiver, fundRaised, Nft, unlockTime, state
+    ] = await Promise.all([
+        rDonatorsP, nameP, descriptionP, imageP,
+        budgetP, companyP, locationP, postalP,
+        receiverP, fundRaisedP, NftP, unlockTimeP, stateP]);
 
     return {
         address,
-        unlockTime:formatUnits(unlockTime,0),
+        unlockTime: formatUnits(unlockTime, 0),
         rDonators,
         name,
         description,
@@ -129,6 +147,7 @@ export const getEverythingCampaign = async (publicClient: any, address: string) 
         postal,
         receiver,
         fundRaised: formatUnits(fundRaised, 18),
-        Nft
+        Nft,
+        state
     }
 }

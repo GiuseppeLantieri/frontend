@@ -19,6 +19,7 @@ import FormB from 'react-bootstrap/Form';
 const Home: NextPage = () => {
     const router = useRouter();
     const [detail, setDetail] = useState() as any;
+    const [Error, setError] = useState() as any;
     const publicClient = getPublicClient()
     const campaign = router.query.campaign;
     const [funds, setFunds] = useState(0) as any;
@@ -36,10 +37,12 @@ const Home: NextPage = () => {
         (async () => {
             try {
                 const d = await getEverythingCampaign(publicClient, campaign as string);
-                setDetail(d);
+                setDetail({ ...d });
+                setError(undefined);
             }
             catch (e) {
                 console.log("error on chain", e);
+                setError("Errore nel ritirare i dati dalla blockchain si prega di ricaricare o aspettare che questo si risolvi col tempo");
             }
         })();
     }, [])
@@ -52,7 +55,8 @@ const Home: NextPage = () => {
         <div >
             <Navbar />
             <Title title='La Campagna' />
-            {!detail && <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em" }}>
+            {Error && <Title title={Error} />}
+            {!detail && <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
                 <Spinner style={{ margin: "auto" }} />
             </Container>}
             {detail &&
