@@ -4,21 +4,21 @@ import colors from "../constant/colors";
 import { Title } from "./Title";
 
 export function Raccolta({ cards }: {
-    cards: {
+    cards:  {
         address: string,
         unlockTime: number,
         rDonators: string,
         name: string,
         description: string,
         image: string,
-        budget: number,
+        budget: string,
         company: string,
         location: string,
         postal: string,
         receiver: string,
-        fundRaised: number,
+        fundRaised: string,
         Nft: string,
-        myFund: number
+        myFund:string
     }[]
 }) {
     return (
@@ -31,7 +31,7 @@ export function Raccolta({ cards }: {
                         cards && cards.map((e, index) => {
                             return (
                                 <Col key={index} lg={3}>
-                                    <Card title={e.name} src={e.image} progress={(e.fundRaised / e.budget) * 100} id={e.address} description={e.description} />
+                                    <Card detail={e} />
                                 </Col>
                             )
                         })
