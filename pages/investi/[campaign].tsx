@@ -33,19 +33,19 @@ const Home: NextPage = () => {
     // });
 
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const d = await getEverythingCampaign(publicClient, campaign as string);
-                setDetail({ ...d });
-                setError(undefined);
-            }
-            catch (e) {
-                console.log("error on chain", e);
-                setError("Errore nel ritirare i dati dalla blockchain si prega di ricaricare o aspettare che questo si risolvi col tempo");
-            }
-        })();
-    }, [])
+    // useEffect(() => {
+    //     (async () => {
+    //         try {
+    //             const d = await getEverythingCampaign(publicClient, campaign as string);
+    //             setDetail({ ...d });
+    //             setError(undefined);
+    //         }
+    //         catch (e) {
+    //             console.log("error on chain", e);
+    //             setError("Errore nel ritirare i dati dalla blockchain si prega di ricaricare o aspettare che questo si risolvi col tempo");
+    //         }
+    //     })();
+    // }, [])
 
     // const click = async () => {
     //     write?.()

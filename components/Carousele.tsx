@@ -26,7 +26,7 @@ export function Carousel({ cards }: {
                     cards.map((c: any, index) => {
                         return (
                             <Col lg={4} key={index}>
-                                <Card title={c.name} src={c.image} progress={(c.fundRaised / c.budget) * 100} id={c.address} description={c.description} />
+                                <Card detail={c} />
                             </Col>
                         )
                     })
