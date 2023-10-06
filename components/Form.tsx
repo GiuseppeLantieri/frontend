@@ -104,7 +104,7 @@ export function Form() {
                             <FormB.Control name='name' type="text" value={Form.name} onInput={(e: any) => handleChange(e.target.value, "name")} />
                         </FormB.Group>
                         <FormB.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <FormB.Label>Descrpition</FormB.Label>
+                            <FormB.Label>Description</FormB.Label>
                             <FormB.Control name='description' as="textarea" rows={10} style={{ height: "100%" }} value={Form.description} onInput={(e: any) => handleChange(e.target.value, "description")} />
                         </FormB.Group>
                     </div>
