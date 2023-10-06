@@ -25,6 +25,7 @@
     "wagmi": "~1.4.2"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "4.36.1",
     "@types/compress.js": "^1.1.1",
     "@types/mime": "^3.0.2",
     "@types/node": "^18.16.12",

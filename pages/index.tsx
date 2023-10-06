@@ -9,6 +9,8 @@ import { getRegistry } from '../utils/factory';
 import { useEffect, useState } from 'react';
 import { getEverythingCampaign } from '../utils/campaigns';
 import { Container, Spinner } from 'react-bootstrap';
+import Head from 'next/head';
+
 
 const Home: NextPage = () => {
   const [cards, setCards] = useState() as any;
@@ -31,6 +33,9 @@ const Home: NextPage = () => {
 
   return (
     <div >
+      <Head>
+        <link rel="icon" href="/static/favicon.ico" sizes="any" />
+      </Head>
       <Navbar />
       <Title title='Il Luogo giusto per dare valore a ciò che conta davvero per te' />
       {!cards &&
