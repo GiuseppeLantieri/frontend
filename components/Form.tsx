@@ -6,11 +6,14 @@ import { NFTStorage } from 'nft.storage';
 import { useWrite } from '../hook/useWrite';
 import contracts from '../constant/contracts';
 import { parseUnits } from 'viem';
+import Toast from "./Toast";
+import { Title } from './Title';
 
 const ONE_MONTH = Math.round(new Date().getTime() / 1000) + (24 * 60 * 60 * 30);
 export function Form() {
 
     const [args, setArgs] = useState() as any;
+    const [error, setError] = useState() as any;
 
     const [Form, setForm] = useState({
         name: "",
@@ -60,6 +63,7 @@ export function Form() {
 
     const storeNFT = async (image: any, name: any, description: any) => {
         // create a new NFTStorage client using our API key
+        console.log("password", process.env.NEXT_PUBLIC_ID)
         const nftstorage = new NFTStorage({ token: process.env.NEXT_PUBLIC_ID as string })
 
         // call client.store, passing in the image & metadata
@@ -69,32 +73,36 @@ export function Form() {
     }
 
     const handleSubmit = async (e: any) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const fileBefore = formData.get("image") as File;
-        const fileAfter = await resizeImageFn(fileBefore);
+        if (args) { await write?.(); }
+        else {
+            e.preventDefault();
+            try {
+                const formData = new FormData(e.currentTarget);
+                const fileBefore = formData.get("image") as File;
+                const fileAfter = await resizeImageFn(fileBefore);
 
-        const nft = await storeNFT(fileAfter, "ciao", "prova");
-        const url = nft.data.image.href;
-        setArgs([
-            ONE_MONTH,//     uint _unlockTime,
-            parseUnits(Form.budget, 18),// uint _budget,
-            Form.wallet,// address _receiver,
-            Form.name,// string memory _name,
-            url,// string memory _image,
-            Form.company,// string memory _company,
-            Form.location,// string memory _location,
-            Form.postal,// string memory _postal,
-            Form.description// string memory _description
-        ])
-    }
-
-    const click = async () => {
-        write?.()
+                const nft = await storeNFT(fileAfter, "ciao", "prova");
+                const url = nft.data.image.href;
+                setArgs([
+                    ONE_MONTH,//     uint _unlockTime,
+                    parseUnits(Form.budget, 18),// uint _budget,
+                    Form.wallet,// address _receiver,
+                    Form.name,// string memory _name,
+                    url,// string memory _image,
+                    Form.company,// string memory _company,
+                    Form.location,// string memory _location,
+                    Form.postal,// string memory _postal,
+                    Form.description// string memory _description
+                ])
+            } catch (ecc) {
+                setError("errore nella convalidazione dei dati ");
+            }
+        }
     }
 
     return (
         <div style={{ marginLeft: "90px", marginRight: "90px", marginTop: "2em", marginBottom: "2em", border: "black 1px solid", padding: "20px", borderRadius: "25px" }}>
+            <Title title={error} />
             <FormB onSubmit={handleSubmit}>
                 <div style={{ display: "flex" }}>
 
@@ -157,11 +165,8 @@ export function Form() {
                     <FormB.Control name='address' type="text" style={{ width: "100%" }} value={Form.wallet} onInput={(e: any) => handleChange(e.target.value, "wallet")} />
                 </FormB.Group>
 
-                <div style={{ display: "flex", justifyContent: "start" }}>
-                    <Button type="submit" >Confirm Data</Button>
-                </div>
                 <div style={{ display: "flex", justifyContent: "end" }}>
-                    <Button onClick={click} >Create Campaign</Button>
+                    <Button type="submit" >{!args ? "Confirm Data" : "Create Campaign"}</Button>
                 </div>
             </FormB>
         </div>
