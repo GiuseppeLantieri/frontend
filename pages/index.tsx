@@ -41,13 +41,13 @@ const Home: NextPage = () => {
       <Navbar />
       <Title title='Il Luogo giusto per dare valore a ciò che conta davvero per te' />
       {!cards &&
-        <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
+        <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "90vh" }}>
           <Spinner style={{ margin: "auto" }} />
         </Container>
       }
       {cards && cards.length > 0 && <Carousel cards={cards} />}
       {cards && cards.length == 0 &&
-        <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
+        <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "90vh" }}>
           <Title title='Nessuna raccolta da mostrare!' />
         </Container>}
       <Footer />
