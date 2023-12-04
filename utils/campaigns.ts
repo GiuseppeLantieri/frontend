@@ -150,12 +150,23 @@ export const getPostal = async (publicClient: any, address: string) => {
     }
 }
 
-
 export const getState = async (publicClient: any, address: string) => {
     try {
         const data = await publicClient.readContract({
             ...getContract(address),
             functionName: 'isPaused',
+        })
+        return data;
+    } catch (e) {
+        return "";
+    }
+}
+
+export const isExausted = async (publicClient: any, address: string) => {
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'isExausted',
         })
         return data;
     } catch (e) {
@@ -177,14 +188,15 @@ export const getEverythingCampaign = async (publicClient: any, address: string) 
     const NftP = getNft(publicClient, address);
     const unlockTimeP = getUnlockTime(publicClient, address);
     const stateP = getState(publicClient, address);
+    const isExaustedP = isExausted(publicClient, address);
 
     const [rDonators, name, description, image,
         budget, company, location, postal,
-        receiver, fundRaised, Nft, unlockTime, state
+        receiver, fundRaised, Nft, unlockTime, state, exausted
     ] = await Promise.all([
         rDonatorsP, nameP, descriptionP, imageP,
         budgetP, companyP, locationP, postalP,
-        receiverP, fundRaisedP, NftP, unlockTimeP, stateP]);
+        receiverP, fundRaisedP, NftP, unlockTimeP, stateP, isExaustedP]);
 
     return {
         address,
@@ -200,6 +212,7 @@ export const getEverythingCampaign = async (publicClient: any, address: string) 
         receiver,
         fundRaised: formatUnits(fundRaised, 18),
         Nft,
-        state
+        state,
+        exausted
     }
 }

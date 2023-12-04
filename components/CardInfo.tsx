@@ -18,13 +18,14 @@ export function CardInfo({ data, withdraw }: {
         postal: string,
         receiver: string,
         fundRaised: string,
-        Nft: string
+        Nft: string,
+        exausted: boolean
     },
     withdraw: boolean
 }) {
     const { width } = useViewportState();
-    const condition = Boolean(data.unlockTime * 1000 < Date.now()) ||
-        Boolean(data.fundRaised >= data.budget);
+    const condition = (Boolean(data.unlockTime * 1000 < Date.now()) ||
+        Boolean(data.fundRaised >= data.budget)) && (!data.exausted);
     const { write } = useWrite({
         abi: contracts.campaign.abi,
         address: data.address as `0x${string}`,
