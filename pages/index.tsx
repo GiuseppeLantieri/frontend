@@ -1,3 +1,4 @@
+'use client'
 import type { NextPage } from 'next';
 import { Navbar } from '../components/Navbar';
 import { Carousel } from '../components/Carousele';
@@ -40,15 +41,14 @@ const Home: NextPage = () => {
       <Navbar />
       <Title title='Il Luogo giusto per dare valore a ciò che conta davvero per te' />
       {!cards &&
-
         <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
           <Spinner style={{ margin: "auto" }} />
         </Container>
       }
-      {cards && <Carousel cards={cards} />}
+      {cards && cards.length > 0 && <Carousel cards={cards} />}
       {cards && cards.length == 0 &&
         <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
-          <Title title='Nessuna raccolta creata!' />
+          <Title title='Nessuna raccolta da mostrare!' />
         </Container>}
       <Footer />
     </div>

@@ -118,7 +118,7 @@ export function Form() {
                             <FormB.Control name='name' type="text" value={Form.name} onInput={(e: any) => handleChange(e.target.value, "name")} />
                         </FormB.Group>
                         <FormB.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <FormB.Label>Description</FormB.Label>
+                            <FormB.Label>Descrizione</FormB.Label>
                             <FormB.Control name='description' as="textarea" rows={10} style={{ height: "100%" }} value={Form.description} onInput={(e: any) => handleChange(e.target.value, "description")} />
                         </FormB.Group>
                     </div>
@@ -140,7 +140,7 @@ export function Form() {
                         />
                     </div>
                     <FormB.Group className="mb-3" >
-                        <FormB.Label>Budget BFT</FormB.Label>
+                        <FormB.Label>Budget (BFT)</FormB.Label>
                         <FormB.Control name='budget' type="number" style={{ width: "100%" }} value={Form.budget} onInput={(e: any) => handleChange(e.target.value, "budget")} />
                     </FormB.Group>
                     <FormB.Group className="mb-3" >
@@ -152,7 +152,7 @@ export function Form() {
                         <FormB.Control name='sede' type="text" style={{ width: "100%" }} value={Form.location} onInput={(e: any) => handleChange(e.target.value, "location")} />
                     </FormB.Group>
                     <FormB.Group className="mb-3" >
-                        <FormB.Label>Postal Code</FormB.Label>
+                        <FormB.Label>Codice postale</FormB.Label>
                         <FormB.Control name='code' type="number" style={{ width: "100%" }} value={Form.postal} onInput={(e: any) => handleChange(e.target.value, "postal")} />
                     </FormB.Group>
                     <FormB.Group className="mb-3" >
@@ -179,7 +179,7 @@ export function Form() {
                             <FormB.Control name='name' type="text" value={Form.name} onInput={(e: any) => handleChange(e.target.value, "name")} />
                         </FormB.Group>
                         <FormB.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <FormB.Label>Description</FormB.Label>
+                            <FormB.Label>Descrizione</FormB.Label>
                             <FormB.Control name='description' as="textarea" rows={10} style={{ height: "100%" }} value={Form.description} onInput={(e: any) => handleChange(e.target.value, "description")} />
                         </FormB.Group>
                     </div>
@@ -208,7 +208,7 @@ export function Form() {
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <FormB.Group className="ml-3" >
-                        <FormB.Label>Budget BFT</FormB.Label>
+                        <FormB.Label>Budget (BFT)</FormB.Label>
                         <FormB.Control name='budget' type="number" style={{ width: "10em" }} value={Form.budget} onInput={(e: any) => handleChange(e.target.value, "budget")} />
                     </FormB.Group>
                     <FormB.Group className="mb-3" >
@@ -221,7 +221,7 @@ export function Form() {
                             <FormB.Control name='sede' type="text" style={{ width: "25em" }} value={Form.location} onInput={(e: any) => handleChange(e.target.value, "location")} />
                         </FormB.Group>
                         <FormB.Group className="mx-3" >
-                            <FormB.Label>Postal Code</FormB.Label>
+                            <FormB.Label>Codice postale</FormB.Label>
                             <FormB.Control name='code' type="number" style={{ width: "5em" }} value={Form.postal} onInput={(e: any) => handleChange(e.target.value, "postal")} />
                         </FormB.Group>
                     </div>

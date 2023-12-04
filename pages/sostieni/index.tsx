@@ -1,3 +1,5 @@
+'use client'
+
 import type { NextPage } from 'next';
 import { Navbar } from '../../components/Navbar';
 import { Title } from '../../components/Title';
@@ -10,11 +12,13 @@ import { getDonatorAmount, getDonators } from '../../utils/donators';
 import { getAccount, getPublicClient } from '@wagmi/core'
 import { formatUnits } from 'viem';
 import { Container, Spinner } from 'react-bootstrap';
+import { useIsMounted } from '../../hook/useIsMounted';
 
 const Home: NextPage = () => {
     const [cards, setCards] = useState() as any;
     const publicClient = getPublicClient()
     const { address, isConnected } = getAccount();
+    const isMounted = useIsMounted()
 
     useEffect(() => {
         (async () => {
@@ -36,23 +40,37 @@ const Home: NextPage = () => {
         })();
     }, [])
 
-
+    if (!isMounted) return null;
+    if (!isConnected) {
+        return (
+            <div >
+                <Navbar />
+                <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "90vh" }}>
+                    <Title title='Questa pagina è disponibile solo per chi è loggato, collega il tuo wallet per vedere chi sostieni' />
+                </Container>
+                <Footer />
+            </div>
+        )
+    }
 
     return (
         <div >
             <Navbar />
-            {!cards &&
-                <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
+            {
+                !cards &&
+                <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "90vh" }}>
                     <Spinner style={{ margin: "auto" }} />
                 </Container>
             }
-            {cards && cards.length > 0 &&
-                <>
+            {
+                cards && cards.length > 0 &&
+                <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "90vh" }}>
                     <Raccolta cards={cards} />
                     <Title title="Grazie infinitivamente per il tuo contributo!" />
-                </>
+                </Container>
             }
-            {cards && cards.length == 0 &&
+            {
+                cards && cards.length == 0 &&
                 <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "90vh" }}>
                     <Title title='Nessuna raccolta sostenuta!' />
                 </Container>
