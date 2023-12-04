@@ -1,10 +1,12 @@
-import { Col, Container, Row } from "react-bootstrap";
+'use client';
+
+import { Col, Row } from "react-bootstrap";
 import { Card } from "./Cards";
-import colors from "../constant/colors";
 import { Title } from "./Title";
+import useViewportState from "beautiful-react-hooks/useViewportState";
 
 export function Raccolta({ cards }: {
-    cards:  {
+    cards: {
         address: string,
         unlockTime: number,
         rDonators: string,
@@ -18,19 +20,43 @@ export function Raccolta({ cards }: {
         receiver: string,
         fundRaised: string,
         Nft: string,
-        myFund:string
+        myFund: string
     }[]
 }) {
+    const { width } = useViewportState();
+
+    if (width < 1000) {
+        return (
+            <>
+                <div style={{ borderRadius: "25px" }}>
+                    <h1>Raccolta delle donazioni:</h1>
+                    <Row style={{ justifyContent: "center" }}>
+                        {
+                            cards && cards.map((e, index) => {
+                                return (
+                                    <Col key={index} lg={3}>
+                                        <Card detail={e} />
+                                    </Col>
+                                )
+                            })
+                        }
+                    </Row>
+
+                </div>
+                <Title title={`Hai donato un totale di ${cards.reduce((a, b) => a + Number(b.myFund), 0)} BFT`} />
+            </>
+        )
+    }
     return (
         <>
             <div style={{ marginLeft: "90px", marginRight: "90px", borderRadius: "25px" }}>
-                <h1>Raccolte in evidenza</h1>
+                <h1>Raccolta delle donazioni</h1>
 
                 <Row style={{ justifyContent: "space-around" }}>
                     {
                         cards && cards.map((e, index) => {
                             return (
-                                <Col key={index} lg={3}>
+                                <Col key={index} lg={3} >
                                     <Card detail={e} />
                                 </Col>
                             )

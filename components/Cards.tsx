@@ -1,20 +1,16 @@
-import { useEffect, useState } from 'react';
+'use client';
+import { useState } from 'react';
 import { Modal, ProgressBar } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import CardB from 'react-bootstrap/Card';
-import colors from '../constant/colors';
-import { getPublicClient } from '@wagmi/core'
 
-
-
-import { CardInfo } from '../components/CardInfo';
 import FormB from 'react-bootstrap/Form';
 import { useWrite } from '../hook/useWrite';
 import contracts from '../constant/contracts';
 import { parseUnits } from 'viem';
-import { getEverythingCampaign } from '../utils/campaigns';
+import useViewportState from 'beautiful-react-hooks/useViewportState';
 
-function Open({ detail, show, handleClose }: {
+function OpenModal({ detail, show, handleClose }: {
     detail: {
         address: string,
         unlockTime: number,
@@ -34,7 +30,7 @@ function Open({ detail, show, handleClose }: {
     //@ts-ignore
     handleClose: any
 }) {
-
+    const { width } = useViewportState();
     const [funds, setFunds] = useState(0) as any;
     const { write } = useWrite({
         abi: contracts.campaign.abi,
@@ -48,6 +44,43 @@ function Open({ detail, show, handleClose }: {
     const click = async () => {
         write?.()
     }
+
+    if (width < 1000) {
+        return (
+            <>
+                <Modal size='lg' show={show} onHide={handleClose} >
+                    <Modal.Header closeButton>
+                        <Modal.Title><h1>{detail.name}</h1></Modal.Title>
+                    </Modal.Header>
+                    <div style={{ padding: "10px" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <img style={{ width: "100px", height: "100px", borderRadius: "25px" }} src={detail.image} alt="" />
+                            <div style={{ border: "black 1px solid", width: "60%", borderRadius: "25px", padding: "5px" }}>
+                                {detail.description}
+                            </div>
+                        </div>
+                        <div style={{ marginTop: "0.5em" }}>
+                            <h2>Abbiamo raggiunto finora: {detail.fundRaised}/{detail.budget}</h2>
+                        </div>
+                        <div style={{
+                            border: "black 1px solid",
+                            borderRadius: "25px",
+                            padding: "10px",
+                            display: "flex",
+                            justifyContent: "space-around"
+                        }}>
+                            <div style={{ display: "flex", alignContent: "center" }}>
+                                <FormB.Label>Budget BFT</FormB.Label>
+                                <FormB.Control name='budget' type="number" style={{ width: "100%" }} value={funds} onInput={(e: any) => setFunds(e.target.value)} />
+                            </div>
+                            <Button onClick={click}>Sostieni!</Button>
+                        </div>
+                    </div>
+                </Modal>
+            </>
+        )
+    }
+
     return (
         <>
             <Modal size='xl' show={show} onHide={handleClose} >
@@ -63,19 +96,9 @@ function Open({ detail, show, handleClose }: {
                         </div>
                         <img style={{ height: "20em", width: "20em", marginLeft: "3em", borderRadius: "25px" }} src={detail.image} alt="" />
                     </div>
-
                     <div style={{ marginTop: "2em" }}>
-                        <h2>Abbiamo raggiunto finora:</h2>
-                        <h2>{detail.fundRaised}/{detail.budget}</h2>
+                        <h2>Abbiamo raggiunto finora: {detail.fundRaised}/{detail.budget}</h2>
                     </div>
-
-                    <div style={{
-                        display: "flex",
-                        justifyContent: "end"
-                    }}>
-                        <Button onClick={click}>Ritira i soldi</Button>
-                    </div>
-
                     <div style={{
                         marginLeft: "90px", marginRight: "90px", marginTop: "2em", marginBottom: "2em",
                         border: "black 1px solid", padding: "20px", borderRadius: "25px", display: "flex",
@@ -110,21 +133,14 @@ export function Card({ detail }: {
         Nft: string
     }
 }) {
-    const [hoover, setHoover] = useState(false);
     const [show, setShow] = useState(false) as any;
 
-    const handleClose = () => { console.log("ciao"); setShow(false) };
-    const handleShow = () => { console.log("ciao2"); setShow(true) };
-    // const handleMouseEnter = () => {
-    //     setHoover(true);
-    // };
+    const handleClose = () => { setShow(false) };
+    const handleShow = () => { setShow(true) };
 
-    // const handleMouseLeave = () => {
-    //     setHoover(false);
-    // };
     return (
         <>
-            <Open detail={detail} show={show} handleClose={handleClose} />
+            <OpenModal detail={detail} show={show} handleClose={handleClose} />
             <CardB style={{ width: '20rem', margin: "0px", borderRadius: "25px", padding: "0px", }}
                 onClick={handleShow} >
 

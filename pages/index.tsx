@@ -5,10 +5,9 @@ import { Title } from '../components/Title';
 import { Footer } from '../components/Footer';
 import { getPublicClient } from '@wagmi/core'
 import { getCampaigns } from '../utils/registry';
-import { getRegistry } from '../utils/factory';
 import { useEffect, useState } from 'react';
 import { getEverythingCampaign } from '../utils/campaigns';
-import { Button, Container, Modal, Spinner } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import Head from 'next/head';
 
 
@@ -47,9 +46,10 @@ const Home: NextPage = () => {
         </Container>
       }
       {cards && <Carousel cards={cards} />}
-      {cards && cards.length == 0 && <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
-        <Title title='Nessuna raccolta creata!' />
-      </Container>}
+      {cards && cards.length == 0 &&
+        <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em", height: "70vh" }}>
+          <Title title='Nessuna raccolta creata!' />
+        </Container>}
       <Footer />
     </div>
   );

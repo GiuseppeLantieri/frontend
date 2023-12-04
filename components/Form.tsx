@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
-import { Button, Col, Image, ProgressBar, Row } from 'react-bootstrap';
+'use client';
+import { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import FormB from 'react-bootstrap/Form';
 import Compress from "compress.js";
 import { NFTStorage } from 'nft.storage';
 import { useWrite } from '../hook/useWrite';
 import contracts from '../constant/contracts';
 import { parseUnits } from 'viem';
-import Toast from "./Toast";
 import { Title } from './Title';
+import useViewportState from 'beautiful-react-hooks/useViewportState';
 
 const ONE_MONTH = Math.round(new Date().getTime() / 1000) + (24 * 60 * 60 * 30);
 export function Form() {
-
+    const { width } = useViewportState();
     const [args, setArgs] = useState() as any;
     const [error, setError] = useState() as any;
 
@@ -103,6 +104,67 @@ export function Form() {
                 setError("errore nella convalidazione dei dati ");
             }
         }
+    }
+
+
+    if (width < 1000) {
+        return (
+            <div style={{ margin: "0.5em", border: "black 1px solid", padding: "5px", borderRadius: "25px" }}>
+                <Title title={error} />
+                <FormB onSubmit={handleSubmit}>
+                    <div style={{ flexGrow: 1 }}>
+                        <FormB.Group className="mb-3" >
+                            <FormB.Label>Nome raccolta</FormB.Label>
+                            <FormB.Control name='name' type="text" value={Form.name} onInput={(e: any) => handleChange(e.target.value, "name")} />
+                        </FormB.Group>
+                        <FormB.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <FormB.Label>Description</FormB.Label>
+                            <FormB.Control name='description' as="textarea" rows={10} style={{ height: "100%" }} value={Form.description} onInput={(e: any) => handleChange(e.target.value, "description")} />
+                        </FormB.Group>
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "row", border: "1px black solid", borderRadius: "25px" }}>
+                        {
+                            Form.url && <img src={Form.url} style={{ width: "9em", height: "9em" }} />
+                        }
+                        <input type="file" accept="image/*" name='image'
+                            onChange={async (e) => {
+                                if (e.target.files && e.target.files[0] != null) {
+                                    const file = e.target.files[0];
+                                    const aux = Form;
+                                    aux.url = URL.createObjectURL(file);
+                                    setForm({ ...aux })
+                                }
+                            }}
+                            className="bg-gray-100"
+                            style={{ overflow: "hidden", width: "9em" }}
+                        />
+                    </div>
+                    <FormB.Group className="mb-3" >
+                        <FormB.Label>Budget BFT</FormB.Label>
+                        <FormB.Control name='budget' type="number" style={{ width: "100%" }} value={Form.budget} onInput={(e: any) => handleChange(e.target.value, "budget")} />
+                    </FormB.Group>
+                    <FormB.Group className="mb-3" >
+                        <FormB.Label>Nome Azienda</FormB.Label>
+                        <FormB.Control name='azienda' type="text" style={{ width: "100%" }} value={Form.company} onInput={(e: any) => handleChange(e.target.value, "company")} />
+                    </FormB.Group>
+                    <FormB.Group className="mb-3" >
+                        <FormB.Label>Sede Legale</FormB.Label>
+                        <FormB.Control name='sede' type="text" style={{ width: "100%" }} value={Form.location} onInput={(e: any) => handleChange(e.target.value, "location")} />
+                    </FormB.Group>
+                    <FormB.Group className="mb-3" >
+                        <FormB.Label>Postal Code</FormB.Label>
+                        <FormB.Control name='code' type="number" style={{ width: "100%" }} value={Form.postal} onInput={(e: any) => handleChange(e.target.value, "postal")} />
+                    </FormB.Group>
+                    <FormB.Group className="mb-3" >
+                        <FormB.Label>Wallet Address</FormB.Label>
+                        <FormB.Control name='address' type="text" style={{ width: "100%" }} value={Form.wallet} onInput={(e: any) => handleChange(e.target.value, "wallet")} />
+                    </FormB.Group>
+                    <div style={{ padding: "10px" }}>
+                        <Button type="submit" style={{ width: "100%" }} >{!args ? "Confirm Data" : "Create Campaign"}</Button>
+                    </div>
+                </FormB>
+            </div>
+        )
     }
 
     return (

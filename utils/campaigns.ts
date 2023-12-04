@@ -6,109 +6,161 @@ export const getContract = (address: string) => ({
     abi: contracts.campaign.abi,
 })
 
-export const getunlockTime = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'unlockTime',
-    })
-    return data;
+export const getUnlockTime = async (publicClient: any, address: string) => {
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'unlockTime',
+        })
+        return data;
+    } catch (e) {
+        return -1;
+    }
 }
 
 export const getRDonators = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'registryDonators',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'registryDonators',
+        })
+        return data;
+    } catch (e) {
+        return "";
+    }
 }
 
 export const getNft = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'nft',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'nft',
+        })
+        return data;
+    } catch (e) {
+        return "";
+    }
 }
 
 export const getReceiver = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'receiver',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'receiver',
+        })
+        return data;
+    } catch (e) {
+        return "";
+    }
 }
 
 export const getBudget = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'budget',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'budget',
+        })
+        return data;
+    } catch (e) {
+        return -1;
+    }
 }
 
 export const getFundRaiser = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'fundRaised',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'fundRaised',
+        })
+        return data;
+    } catch (e) {
+        return -1;
+    }
 }
 
 export const getName = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'name',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'name',
+        })
+        return data;
+    } catch (e) {
+        return "";
+    }
 }
 
 export const getDescription = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'description',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'description',
+        })
+        return data;
+    } catch (e) {
+        return "";
+    }
 }
 
 export const getImage = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'image',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'image',
+        })
+        return data;
+    } catch (e) {
+        return "";
+    }
 }
 
 export const getCompany = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'company',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'company',
+        })
+        return data;
+    } catch (e) {
+        return "";
+    }
 }
 
 export const getLocation = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'location',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'location',
+        })
+        return data;
+    } catch (e) {
+        return "";
+    }
 }
 
 export const getPostal = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'postal',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'postal',
+        })
+        return data;
+    } catch (e) {
+        return "";
+    }
 }
 
 
 export const getState = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'isPaused',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'isPaused',
+        })
+        return data;
+    } catch (e) {
+        return "";
+    }
 }
 
 export const getEverythingCampaign = async (publicClient: any, address: string) => {
@@ -123,7 +175,7 @@ export const getEverythingCampaign = async (publicClient: any, address: string) 
     const receiverP = getReceiver(publicClient, address);
     const fundRaisedP = getFundRaiser(publicClient, address);
     const NftP = getNft(publicClient, address);
-    const unlockTimeP = getunlockTime(publicClient, address);
+    const unlockTimeP = getUnlockTime(publicClient, address);
     const stateP = getState(publicClient, address);
 
     const [rDonators, name, description, image,

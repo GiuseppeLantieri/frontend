@@ -1,15 +1,11 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import { Navbar } from '../../components/Navbar';
 import { Title } from '../../components/Title';
 import { Footer } from '../../components/Footer';
-import { Form } from '../../components/Form';
 import { CardInfo } from '../../components/CardInfo';
 import { getAccount, getPublicClient } from '@wagmi/core'
 import { getCampaigns } from '../../utils/registry';
-import { getEverythingCampaign, getRDonators, getReceiver } from '../../utils/campaigns';
-import { getDonators } from '../../utils/donators';
+import { getEverythingCampaign, getReceiver } from '../../utils/campaigns';
 import { useEffect, useState } from 'react';
 import { Container, Spinner } from 'react-bootstrap';
 
@@ -49,11 +45,7 @@ const Home: NextPage = () => {
             {
                 cards && cards.map((card: any, index: number) => {
                     return (
-                        <div key={index}>
-                            <CardInfo data={card} withdraw={true} />
-
-                        </div>
-
+                        <CardInfo key={index} data={card} withdraw={true} />
                     )
                 })
             }

@@ -6,26 +6,38 @@ export const getContract = (address: string) => ({
 })
 
 export const getDonators = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'getDonators',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'getDonators',
+        })
+        return data;
+    } catch (e) {
+        return [];
+    }
 }
 
 export const getDonatorsLength = async (publicClient: any, address: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'getDonatorsLength',
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'getDonatorsLength',
+        })
+        return data;
+    } catch (e) {
+        return -1;
+    }
 }
 
 export const getDonatorAmount = async (publicClient: any, address: string, donator: string) => {
-    const data = await publicClient.readContract({
-        ...getContract(address),
-        functionName: 'donators',
-        args: [donator]
-    })
-    return data;
+    try {
+        const data = await publicClient.readContract({
+            ...getContract(address),
+            functionName: 'donators',
+            args: [donator]
+        })
+        return data;
+    } catch (e) {
+        return -1;
+    }
 }
